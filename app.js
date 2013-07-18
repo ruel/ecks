@@ -6,6 +6,9 @@
 var express = require('express');
 var http = require('http');
 var socketio = require('socket.io');
+var consolidate = require('consolidate');
+var swig = require('swig');
+var _ = require('underscore');
 
 var config = require('./config.js');
 var xmpp = require('./xmpp.js');
@@ -16,12 +19,23 @@ var logger = config.logger;
 var server = http.createServer(app);
 var io = socketio.listen(server);
 
+// Associate socket with xmpp client
+var clients = [];
+var conns = [];
+
 server.listen(config.get('app:port'));
 app.use(express.bodyParser());
 app.use(express.logger('dev'));
 app.use(app.router);
 app.use(express.static(__dirname + '/public'));
 app.use(express.errorHandler());
+
+
+// Set view engine
+app.set('view engine', 'html');
+app.set('views', __dirname + '/views');
+app.engine('.html', consolidate.swig);
+swig.init({ root: __dirname + '/views' });
 
 // Initial page
 app.get('/', function (req, res) {
@@ -36,8 +50,11 @@ app.post('/', function (req, res) {
         jid !== "" && pass != "") {
         xmpp.login(jid, pass, function (err, client) {
             if (client) {
+                
+                // Add client to list
+                clients.push(client);
                 xmpp.presence(client);
-                res.sendfile(__dirname + '/views/loggedin.html');
+                res.render('loggedin', { jid : client.jid.toString() });
             } else {
                 res.send(401);
             }
@@ -48,5 +65,15 @@ app.post('/', function (req, res) {
 });
 
 io.sockets.on('connection', function (socket) {
+    io.sockets.on('assoc', function (jid) {
+        var client = _.find(clients, function (cl) {
+            return cl.jid.toString() === jid;
+        });
+        
+        socket.xclient = client;
+    });
     
+    io.sockets.on('disconnect', function () {
+        socket.xclient.connection.end();
+    });
 });

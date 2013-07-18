@@ -7,6 +7,9 @@
         "socket.io": "*",
         "nconf": "*",
         "winston": "*",
-        "node-xmpp": "*"
+        "node-xmpp": "*",
+        "underscore": "*",
+        "swig": "*",
+        "consolidate": "*"
     }
 }
