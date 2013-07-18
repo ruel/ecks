@@ -65,15 +65,16 @@ app.post('/', function (req, res) {
 });
 
 io.sockets.on('connection', function (socket) {
-    io.sockets.on('assoc', function (jid) {
+    socket.on('assoc', function (jid) {
         var client = _.find(clients, function (cl) {
             return cl.jid.toString() === jid;
         });
         
+        logger.log(0, 'Associating jid: ' + jid);
         socket.xclient = client;
     });
     
-    io.sockets.on('disconnect', function () {
+    socket.on('disconnect', function () {
         socket.xclient.connection.end();
     });
 });

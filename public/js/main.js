@@ -4,4 +4,6 @@ $(document).on('ready', function() {
     var host = slashes.concat(window.location.host);
     
     var socket = io.connect(host);
+    
+    socket.emit('assoc', $('#jid').val());
 });
