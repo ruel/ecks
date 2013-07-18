@@ -18,8 +18,9 @@ var io = socketio.listen(server);
 
 server.listen(config.get('app:port'));
 app.use(express.bodyParser());
+app.use(express.logger('dev'));
 app.use(app.router);
-app.use(express.errorHandler();
+app.use(express.errorHandler());
 
 // Initial page
 app.get('/', function (req, res) {

@@ -8,7 +8,7 @@ var config = require('./config.js');
 var logger = config.logger;
 
 // Check if login, and.. login
-exports.login = function (client, jid, password) {
+exports.login = function (jid, password) {
     
     // Get initial host and port, and append the params
     var xinfo = config.get('xmpp');
@@ -16,7 +16,7 @@ exports.login = function (client, jid, password) {
     xinfo.password = password;
     
     // Try to login
-    client = new xmpp.Client(xinfo);
+    var client = new xmpp.Client(xinfo);
     
     client.once('online', function () {
         callback(null, client);
