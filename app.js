@@ -20,6 +20,7 @@ server.listen(config.get('app:port'));
 app.use(express.bodyParser());
 app.use(express.logger('dev'));
 app.use(app.router);
+app.use(express.static(__dirname + '/public'));
 app.use(express.errorHandler());
 
 // Initial page
