@@ -49,7 +49,7 @@ function presence (client) {
 function join (client, room) {
     
     // Join a the roon
-    client.send(new xmpp.Element('presence', { to: room + '/test' }).
+    client.send(new xmpp.Element('presence', { to: room + '/' +  client.jid.split('@')[0]}).
         c('x', { xmlns: 'http://jabber.org/protocol/muc' })
     );
 }
