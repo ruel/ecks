@@ -36,7 +36,7 @@ app.post('/', function (req, res) {
         jid !== "" && pass != "") {
         xmpp.login(jid, pass, function (err, client) {
             if (client) {
-                presence(client);
+                xmpp.presence(client);
                 res.sendfile(__dirname + '/views/loggedin.html');
             } else {
                 res.send(401);
