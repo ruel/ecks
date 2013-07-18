@@ -36,6 +36,7 @@ app.post('/', function (req, res) {
         jid !== "" && pass != "") {
         xmpp.login(jid, pass, function (err, client) {
             if (client) {
+                presence(client);
                 res.sendfile(__dirname + '/views/loggedin.html');
             } else {
                 res.send(401);
@@ -47,5 +48,21 @@ app.post('/', function (req, res) {
 });
 
 io.sockets.on('connection', function (socket) {
-    console.log('Test');
+    function presence (client) {
+        
+        // Send a presence
+        client.send(new xmpp.Element('presence', { type: 'available' }).
+            c('show').t('chat')
+        );
+        
+        join(client, 'test@twisted.ruel.me');
+    }
+    
+    function join (client, room) {
+        
+        // Join a the roon
+        client.send(new xmpp.Element('presence', room + '/test' }).
+            c('x', { xmlns: 'http://jabber.org/protocol/muc' })
+        );
+    }
 });
