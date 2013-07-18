@@ -35,3 +35,21 @@ exports.login = function (jid, password, callback) {
         callback(new Error('Invalid Login'), null);
     });
 };
+
+exports.presence = function (client) {
+    
+    // Send a presence
+    client.send(new xmpp.Element('presence', { type: 'available' }).
+        c('show').t('chat')
+    );
+    
+    join(client, 'test@twisted.ruel.me');
+}
+
+exports.join = function (client, room) {
+    
+    // Join a the roon
+    client.send(new xmpp.Element('presence', { to: room + '/test' }).
+        c('x', { xmlns: 'http://jabber.org/protocol/muc' })
+    );
+}
