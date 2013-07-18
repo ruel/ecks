@@ -47,5 +47,5 @@ app.post('/', function (req, res) {
 });
 
 io.sockets.on('connection', function (socket) {
-    
+    console.log('Test');
 });

@@ -24,10 +24,16 @@ body {
 }
 
 #login input {
-    width: 250px;
-    font-size: 1.2em;
+    width: 186px;
     padding: 5px;
     border-radius: 3px;
+    border: 1px solid #999;
+}
+
+#login #submit {
+    background-color: #00CC33;
+    color: #fff;
+    font-weight: bold;
 }
 
 #rooms {
