@@ -32,7 +32,8 @@ app.post('/', function (req, res) {
     var jid = req.body.jid;
     var pass = req.body.pass;
     
-    if (jid !== undefined && pass !== undefined) {
+    if (jid !== undefined && pass !== undefined &&
+        jid !== "" && pass != "") {
         xmpp.login(jid, pass, function (err, client) {
             if (client) {
                 res.sendfile(__dirname + '/views/loggedin.html');
