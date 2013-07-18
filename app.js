@@ -48,21 +48,23 @@ app.post('/', function (req, res) {
 });
 
 io.sockets.on('connection', function (socket) {
-    function presence (client) {
-        
-        // Send a presence
-        client.send(new xmpp.Element('presence', { type: 'available' }).
-            c('show').t('chat')
-        );
-        
-        join(client, 'test@twisted.ruel.me');
-    }
     
-    function join (client, room) {
-        
-        // Join a the roon
-        client.send(new xmpp.Element('presence', room + '/test' }).
-            c('x', { xmlns: 'http://jabber.org/protocol/muc' })
-        );
-    }
 });
+
+function presence (client) {
+    
+    // Send a presence
+    client.send(new xmpp.Element('presence', { type: 'available' }).
+        c('show').t('chat')
+    );
+    
+    join(client, 'test@twisted.ruel.me');
+}
+
+function join (client, room) {
+    
+    // Join a the roon
+    client.send(new xmpp.Element('presence', { to: room + '/test' }).
+        c('x', { xmlns: 'http://jabber.org/protocol/muc' })
+    );
+}
