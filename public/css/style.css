@@ -80,12 +80,13 @@ body {
 }
 
 #input {
-    position: relative;
+    position: absolute;
     left: 0;
     bottom: 0;
 }
 
 #txtinput {
+    display: block;
     width: 95%;
     margin: 10px auto;
 }

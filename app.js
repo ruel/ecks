@@ -80,9 +80,11 @@ io.sockets.on('connection', function (socket) {
         // Handle Stanzas here
         socket.xclient.on('stanza', function(stanza) {
             if (stanza.attrs.type === 'error') {
-                socket.emit('errprompt', { type: 'error' : text: stanza.text() });
+                socket.emit('stanza', { type: 'error', text: stanza.text() });
                 return;
             }
+            
+            socket.emit('stanza', {type: 'message', text: stanza.text() });
         });
     });
     
