@@ -46,14 +46,6 @@ function presence (client) {
     join(client, 'lobby@twisted.ruel.me');
 }
 
-function getonline (client, callback) {
-    
-    // Get all online users
-    client.send(new xmpp.Element('iq', {
-        from : 
-    }));
-}
-
 function join (client, room) {
     
     // Join a the room
