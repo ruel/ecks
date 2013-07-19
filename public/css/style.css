@@ -36,6 +36,35 @@ body {
     border: 1px solid #00AA22;
 }
 
-#rooms {
-    
+#sidebar {
+    height: 100%;
+    width: 150px;
+    position: fixed;
+    right: 0;
+    padding: 10px;
+    background-color: #666;
+}
+
+.sidelabel {
+    color: #999;
+    text-transform: uppercase;
+}
+
+#online {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    margin-top: 7px;
+    color: #fff;
+}
+
+#online li {
+    padding-left: 1em;
+    padding-top: 4px;
+    text-indent: -7em;
+}
+
+#online li:before {
+    content: "• ";
+    color: green;
 }

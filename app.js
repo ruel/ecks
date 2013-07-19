@@ -21,7 +21,7 @@ var io = socketio.listen(server);
 
 // Associate socket with xmpp client
 var clients = [];
-var conns = [];
+var nicks = [];
 
 server.listen(config.get('app:port'));
 app.use(express.bodyParser());
@@ -72,9 +72,21 @@ io.sockets.on('connection', function (socket) {
         
         logger.log(0, 'Associating jid: ' + jid);
         socket.xclient = client;
+        socket.jid = jid;
+        
+        socket.emit('online', socket.jid.split('@')[0]);
     });
     
     socket.on('disconnect', function () {
+        
+        // Handle disconnect
+        logger.log(0, socket.jid + ' disconnected');
         socket.xclient.connection.end();
+        
+        // Remove from list of clients
+        var cindex = clients.indexOf(socket.xclient);
+        clients.splice(cindex, 1);
+        
+        socket.emit('offline', socket.jid.split('@')[0]);
     });
 });
