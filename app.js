@@ -75,7 +75,15 @@ io.sockets.on('connection', function (socket) {
         socket.jid = jid;
         nicks.push(jid.split('@')[0]);
         
-        socket.emit('online', nicks);
+        io.sockets.emit('online', nicks);
+        
+        // Handle Stanzas here
+        socket.xclient.on('stanza', function(stanza) {
+            if (stanza.attrs.type === 'error') {
+                socket.emit('errprompt', { type: 'error' : text: stanza.text() });
+                return;
+            }
+        });
     });
     
     socket.on('disconnect', function () {
@@ -92,6 +100,6 @@ io.sockets.on('connection', function (socket) {
         var nindex = clients.indexOf(socket.jid.split('@')[0]);
         nicks.splice(nindex, 1);
         
-        socket.emit('online', nicks);
+        io.sockets.emit('online', nicks);
     });
 });

@@ -63,9 +63,29 @@ body {
 #online li {
     padding-left: 1em;
     padding-top: 4px;
+    font-size: 0.8em;
 }
 
 #online li:before {
     content: "• ";
+    font-size: 1.5em;
     color: green;
+}
+
+#main {
+    width: 100%;
+    height: 100%;
+    margin-left: 170px;
+    background-color: #EFEFEF;
+}
+
+#input {
+    position: relative;
+    left: 0;
+    bottom: 0;
+}
+
+#txtinput {
+    width: 95%;
+    margin: 10px auto;
 }
