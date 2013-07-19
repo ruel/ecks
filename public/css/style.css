@@ -40,8 +40,11 @@ body {
     width: 150px;
     position: fixed;
     right: 0;
+    top: 0;
+    margin: 0;
     padding: 10px;
     background-color: #333;
+    overflow: auto;
 }
 
 .sidelabel {

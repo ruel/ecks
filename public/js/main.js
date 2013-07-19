@@ -10,7 +10,7 @@ $(document).on('ready', function() {
     socket.on('online', function(nicks) {
         $('#online').empty();
         $.each(nicks, function() {
-            $('#online').append('<li id="on' + $(this) + '">' + $(this) + '</li>');
+            $('#online').append('<li id="on' + this + '">' + this + '</li>');
         });
        
     });
