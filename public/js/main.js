@@ -16,6 +16,7 @@ $(document).on('ready', function() {
     });
     
     socket.on('stanza', function(stanza) {
+        console.log(stanza);
         $('#stanzas').append('<div class="stanza" class="' + stanza.type + '">' + stanza.text + '</div>');
     });
 });
