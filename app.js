@@ -73,8 +73,9 @@ io.sockets.on('connection', function (socket) {
         logger.log(0, 'Associating jid: ' + jid);
         socket.xclient = client;
         socket.jid = jid;
+        nicks.push(jid.split('@')[0]);
         
-        socket.emit('online', socket.jid.split('@')[0]);
+        socket.emit('online', nicks);
     });
     
     socket.on('disconnect', function () {
@@ -87,6 +88,10 @@ io.sockets.on('connection', function (socket) {
         var cindex = clients.indexOf(socket.xclient);
         clients.splice(cindex, 1);
         
-        socket.emit('offline', socket.jid.split('@')[0]);
+        // Remove from list of nicks
+        var nindex = clients.indexOf(socket.jid.split('@')[0]);
+        nicks.splice(nindex, 1);
+        
+        socket.emit('online', nicks);
     });
 });

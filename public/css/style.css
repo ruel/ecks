@@ -2,7 +2,6 @@ body {
     background-color: #E4E4E4;
     font-family: sans-serif;  
     width: 100%;
-    font-size: 1.3em;
 }
 
 .container {
@@ -42,7 +41,7 @@ body {
     position: fixed;
     right: 0;
     padding: 10px;
-    background-color: #666;
+    background-color: #333;
 }
 
 .sidelabel {
@@ -61,7 +60,6 @@ body {
 #online li {
     padding-left: 1em;
     padding-top: 4px;
-    text-indent: -7em;
 }
 
 #online li:before {

@@ -7,12 +7,11 @@ $(document).on('ready', function() {
     
     socket.emit('assoc', $('#jid').val());
     
-    socket.on('online', function(nick) {
-        var i = $('<li id="on' + nick + '">' + nick + '</li>').hide().fadeIn(1000);
-        $('#online').append(i);
-    });
-    
-    socket.on('offline', function(nick) {
-        $('#on' + nick).fadeOut(1000);
+    socket.on('online', function(nicks) {
+        $('#online').empty();
+        $.each(nicks, function() {
+            $('#online').append('<li id="on' + $(this) + '">' + $(this) + '</li>');
+        });
+       
     });
 });
